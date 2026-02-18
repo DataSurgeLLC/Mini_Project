@@ -262,8 +262,7 @@
     {
       "name": "0276b17f",
       "displayName": "Global Filters",
-      "pageType": "PAGE_TYPE_GLOBAL_FILTERS",
-      "layoutVersion": "GRID_V1"
+      "pageType": "PAGE_TYPE_GLOBAL_FILTERS"
     }
   ],
   "uiSettings": {
