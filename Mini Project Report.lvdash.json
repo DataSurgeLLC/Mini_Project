@@ -1,0 +1,274 @@
+{
+  "datasets": [
+    {
+      "name": "b5c95195",
+      "displayName": "product",
+      "queryLines": [
+        "SELECT * FROM mini_project.gold_layer.product"
+      ]
+    },
+    {
+      "name": "0413344c",
+      "displayName": "purchase_order",
+      "queryLines": [
+        "SELECT * FROM mini_project.gold_layer.purchase_order"
+      ]
+    },
+    {
+      "name": "270b1d80",
+      "displayName": "sales_order",
+      "queryLines": [
+        "SELECT * FROM mini_project.gold_layer.sales_order"
+      ]
+    },
+    {
+      "name": "b383edc9",
+      "displayName": "date_dim",
+      "queryLines": [
+        "SELECT * FROM mini_project.gold_layer.date_dim"
+      ]
+    },
+    {
+      "name": "03853027",
+      "displayName": "Total Sales by Product",
+      "queryLines": [
+        "SELECT p.name, s.order_qty * ((1 - s.unit_price_discount) * (s.unit_price)) as sales FROM mini_project.gold_layer.product p \r\n",
+        "LEFT JOIN mini_project.gold_layer.sales_order s ON p.product_id = s.product_id\r\n",
+        "WHERE s.status = 'Shipped' order by sales desc limit 10 "
+      ]
+    },
+    {
+      "name": "4cb35d84",
+      "displayName": "Average Days to Manufacture by Product",
+      "queryLines": [
+        "SELECT product_subcategory, AVG(days_to_manufacture) as average_days_to_manufacture \r\n",
+        "FROM mini_project.gold_layer.product group by product_subcategory order by average_days_to_manufacture desc limit 10"
+      ]
+    }
+  ],
+  "pages": [
+    {
+      "name": "d88bee9b",
+      "displayName": "Report Page",
+      "layout": [
+        {
+          "widget": {
+            "name": "total-sales-by-product",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "03853027",
+                  "fields": [
+                    {
+                      "name": "sum(sales)",
+                      "expression": "SUM(`sales`)"
+                    },
+                    {
+                      "name": "name",
+                      "expression": "`name`"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "title": "Top 10 best-selling products",
+                "showTitle": true
+              },
+              "mark": {
+                "colors": [
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 3
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 2
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 3
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 4
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 5
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 6
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 7
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 8
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 9
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 10
+                  }
+                ]
+              },
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "sum(sales)",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "y": {
+                  "fieldName": "name",
+                  "displayName": "Product Name",
+                  "scale": {
+                    "type": "categorical",
+                    "sort": {
+                      "by": "x-reversed"
+                    }
+                  }
+                },
+                "label": {
+                  "show": false
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 1,
+            "y": 0,
+            "width": 5,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "average-days-manufacture-product-subcategory",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "4cb35d84",
+                  "fields": [
+                    {
+                      "name": "avg(average_days_to_manufacture)",
+                      "expression": "AVG(`average_days_to_manufacture`)"
+                    },
+                    {
+                      "name": "product_subcategory",
+                      "expression": "`product_subcategory`"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "title": "Average Days to Manufacture by Product Subcategory",
+                "showTitle": true
+              },
+              "mark": {
+                "colors": [
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 3
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 2
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 3
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 4
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 5
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 6
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 7
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 8
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 9
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 10
+                  }
+                ]
+              },
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "avg(average_days_to_manufacture)",
+                  "displayName": "Average Days to Manufacture",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "y": {
+                  "fieldName": "product_subcategory",
+                  "displayName": "Product Subcategory",
+                  "scale": {
+                    "type": "categorical",
+                    "sort": {
+                      "by": "x-reversed"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 0,
+            "width": 6,
+            "height": 6
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "layoutVersion": "GRID_V1"
+    },
+    {
+      "name": "0276b17f",
+      "displayName": "Global Filters",
+      "pageType": "PAGE_TYPE_GLOBAL_FILTERS"
+    }
+  ],
+  "uiSettings": {
+    "theme": {
+      "widgetHeaderAlignment": "ALIGNMENT_UNSPECIFIED"
+    },
+    "applyModeEnabled": false
+  }
+}
