@@ -100,6 +100,7 @@
         "FROM monthly_product mp\r\n",
         "JOIN  mini_project.gold_layer.product pr\r\n",
         "  ON pr.product_id = mp.product_id\r\n",
+        "WHERE mp.year != 2025\r\n",
         "ORDER BY pr.name, mp.year, mp.month;"
       ]
     }
@@ -185,6 +186,7 @@
               "encodings": {
                 "x": {
                   "fieldName": "sum(sales_amount)",
+                  "displayName": "Sum of Sold Amount",
                   "scale": {
                     "type": "quantitative"
                   }
@@ -288,6 +290,7 @@
               "encodings": {
                 "x": {
                   "fieldName": "avg(days_to_manufacture)",
+                  "displayName": "Average Days to Manufacture",
                   "scale": {
                     "type": "quantitative"
                   }
@@ -383,12 +386,16 @@
               "encodings": {
                 "x": {
                   "fieldName": "year_month",
+                  "axis": {
+                    "title": "Year Month"
+                  },
                   "scale": {
                     "type": "categorical"
                   }
                 },
                 "y": {
                   "fieldName": "sum(net_amount)",
+                  "displayName": "Net Revenue",
                   "scale": {
                     "type": "quantitative"
                   }
@@ -480,12 +487,17 @@
               "encodings": {
                 "x": {
                   "fieldName": "year_month",
+                  "displayName": "Year Month",
                   "scale": {
                     "type": "categorical"
                   }
                 },
                 "y": {
                   "fieldName": "net_amount",
+                  "axis": {
+                    "title": "Net Revenue"
+                  },
+                  "displayName": "Net Revenue",
                   "scale": {
                     "type": "quantitative"
                   }
@@ -675,10 +687,6 @@
                   "datasetName": "a86fa395",
                   "fields": [
                     {
-                      "name": "product_name",
-                      "expression": "`product_name`"
-                    },
-                    {
                       "name": "product_category",
                       "expression": "`product_category`"
                     },
@@ -687,31 +695,23 @@
                       "expression": "`product_subcategory`"
                     },
                     {
-                      "name": "sales_amount",
-                      "expression": "`sales_amount`"
+                      "name": "product_name",
+                      "expression": "`product_name`"
                     },
                     {
-                      "name": "purchase_amount",
-                      "expression": "`purchase_amount`"
+                      "name": "sum(sales_amount)",
+                      "expression": "SUM(`sales_amount`)"
                     },
                     {
-                      "name": "net_amount",
-                      "expression": "`net_amount`"
+                      "name": "sum(purchase_amount)",
+                      "expression": "SUM(`purchase_amount`)"
                     },
                     {
-                      "name": "purchase_qty",
-                      "expression": "`purchase_qty`"
-                    },
-                    {
-                      "name": "sales_qty",
-                      "expression": "`sales_qty`"
-                    },
-                    {
-                      "name": "days_to_manufacture",
-                      "expression": "`days_to_manufacture`"
+                      "name": "sum(net_amount)",
+                      "expression": "SUM(`net_amount`)"
                     }
                   ],
-                  "disaggregated": true
+                  "disaggregated": false
                 }
               }
             ],
@@ -721,31 +721,28 @@
               "encodings": {
                 "columns": [
                   {
-                    "fieldName": "product_name"
+                    "fieldName": "product_category",
+                    "displayName": "Product Category"
                   },
                   {
-                    "fieldName": "product_category"
+                    "fieldName": "product_subcategory",
+                    "displayName": "Product Subcategory"
                   },
                   {
-                    "fieldName": "product_subcategory"
+                    "fieldName": "product_name",
+                    "displayName": "Product Name"
                   },
                   {
-                    "fieldName": "sales_amount"
+                    "fieldName": "sum(sales_amount)",
+                    "displayName": "Total Sales"
                   },
                   {
-                    "fieldName": "purchase_amount"
+                    "fieldName": "sum(purchase_amount)",
+                    "displayName": "Purchase Cost"
                   },
                   {
-                    "fieldName": "net_amount"
-                  },
-                  {
-                    "fieldName": "purchase_qty"
-                  },
-                  {
-                    "fieldName": "sales_qty"
-                  },
-                  {
-                    "fieldName": "days_to_manufacture"
+                    "fieldName": "sum(net_amount)",
+                    "displayName": "Net Revenue"
                   }
                 ]
               }
