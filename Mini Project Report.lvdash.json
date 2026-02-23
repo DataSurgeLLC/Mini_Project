@@ -695,7 +695,7 @@
               "version": 2,
               "frame": {
                 "showTitle": true,
-                "title": "Net Revenue",
+                "title": "Gross Revenue",
                 "headerAlignment": "center"
               },
               "widgetType": "counter",
