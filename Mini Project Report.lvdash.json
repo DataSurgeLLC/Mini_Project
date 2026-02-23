@@ -128,6 +128,11 @@
                       "expression": "`product_name`"
                     }
                   ],
+                  "filters": [
+                    {
+                      "expression": "IN_RANGE(`sales_amount`, 1BD, NULL)"
+                    }
+                  ],
                   "disaggregated": false
                 }
               }
@@ -186,7 +191,7 @@
               "encodings": {
                 "x": {
                   "fieldName": "sum(sales_amount)",
-                  "displayName": "Sum of Sold Amount",
+                  "displayName": "Sum of Sales",
                   "scale": {
                     "type": "quantitative"
                   }
@@ -209,7 +214,7 @@
           },
           "position": {
             "x": 1,
-            "y": 14,
+            "y": 17,
             "width": 5,
             "height": 6
           }
@@ -230,6 +235,11 @@
                     {
                       "name": "product_subcategory",
                       "expression": "`product_subcategory`"
+                    }
+                  ],
+                  "filters": [
+                    {
+                      "expression": "IN_RANGE(`days_to_manufacture`, 1, NULL)"
                     }
                   ],
                   "disaggregated": false
@@ -309,7 +319,7 @@
           },
           "position": {
             "x": 6,
-            "y": 14,
+            "y": 17,
             "width": 6,
             "height": 6
           }
@@ -328,8 +338,8 @@
                       "expression": "`year_month`"
                     },
                     {
-                      "name": "sum(net_amount)",
-                      "expression": "SUM(`net_amount`)"
+                      "name": "sum(sales_amount)",
+                      "expression": "SUM(`sales_amount`)"
                     }
                   ],
                   "disaggregated": false
@@ -394,8 +404,8 @@
                   }
                 },
                 "y": {
-                  "fieldName": "sum(net_amount)",
-                  "displayName": "Net Revenue",
+                  "fieldName": "sum(sales_amount)",
+                  "displayName": "Sum of Gross Revenue",
                   "scale": {
                     "type": "quantitative"
                   }
@@ -406,113 +416,6 @@
           "position": {
             "x": 1,
             "y": 2,
-            "width": 11,
-            "height": 6
-          }
-        },
-        {
-          "widget": {
-            "name": "8bc12af8",
-            "queries": [
-              {
-                "name": "main_query",
-                "query": {
-                  "datasetName": "a86fa395",
-                  "fields": [
-                    {
-                      "name": "product_name",
-                      "expression": "`product_name`"
-                    },
-                    {
-                      "name": "year_month",
-                      "expression": "`year_month`"
-                    },
-                    {
-                      "name": "net_amount",
-                      "expression": "`net_amount`"
-                    }
-                  ],
-                  "disaggregated": true
-                }
-              }
-            ],
-            "spec": {
-              "version": 3,
-              "mark": {
-                "colors": [
-                  {
-                    "themeColorType": "visualizationColors",
-                    "position": 3
-                  },
-                  {
-                    "themeColorType": "visualizationColors",
-                    "position": 2
-                  },
-                  {
-                    "themeColorType": "visualizationColors",
-                    "position": 3
-                  },
-                  {
-                    "themeColorType": "visualizationColors",
-                    "position": 4
-                  },
-                  {
-                    "themeColorType": "visualizationColors",
-                    "position": 5
-                  },
-                  {
-                    "themeColorType": "visualizationColors",
-                    "position": 6
-                  },
-                  {
-                    "themeColorType": "visualizationColors",
-                    "position": 7
-                  },
-                  {
-                    "themeColorType": "visualizationColors",
-                    "position": 8
-                  },
-                  {
-                    "themeColorType": "visualizationColors",
-                    "position": 9
-                  },
-                  {
-                    "themeColorType": "visualizationColors",
-                    "position": 10
-                  }
-                ],
-                "opacity": 0.57
-              },
-              "widgetType": "scatter",
-              "encodings": {
-                "x": {
-                  "fieldName": "year_month",
-                  "displayName": "Year Month",
-                  "scale": {
-                    "type": "categorical"
-                  }
-                },
-                "y": {
-                  "fieldName": "net_amount",
-                  "axis": {
-                    "title": "Net Revenue"
-                  },
-                  "displayName": "Net Revenue",
-                  "scale": {
-                    "type": "quantitative"
-                  }
-                },
-                "extra": [
-                  {
-                    "fieldName": "product_name"
-                  }
-                ]
-              }
-            }
-          },
-          "position": {
-            "x": 1,
-            "y": 8,
             "width": 11,
             "height": 6
           }
@@ -711,6 +614,11 @@
                       "expression": "SUM(`net_amount`)"
                     }
                   ],
+                  "filters": [
+                    {
+                      "expression": "IN_RANGE(`purchase_amount`, NULL, NULL)"
+                    }
+                  ],
                   "disaggregated": false
                 }
               }
@@ -750,7 +658,7 @@
           },
           "position": {
             "x": 1,
-            "y": 20,
+            "y": 23,
             "width": 11,
             "height": 8
           }
@@ -769,8 +677,8 @@
                       "expression": "DATE_TRUNC(\"YEAR\", `month_start_ts`)"
                     },
                     {
-                      "name": "sum(net_amount)",
-                      "expression": "SUM(`net_amount`)"
+                      "name": "sum(sales_amount)",
+                      "expression": "SUM(`sales_amount`)"
                     }
                   ],
                   "disaggregated": false,
@@ -793,7 +701,7 @@
               "widgetType": "counter",
               "encodings": {
                 "value": {
-                  "fieldName": "sum(net_amount)"
+                  "fieldName": "sum(sales_amount)"
                 },
                 "period": {
                   "fieldName": "yearly(month_start_ts)"
@@ -806,6 +714,112 @@
             "y": 0,
             "width": 3,
             "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "top-most-purchased-products",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "a86fa395",
+                  "fields": [
+                    {
+                      "name": "sum(purchase_qty)",
+                      "expression": "SUM(`purchase_qty`)"
+                    },
+                    {
+                      "name": "product_name",
+                      "expression": "`product_name`"
+                    }
+                  ],
+                  "filters": [
+                    {
+                      "expression": "`purchase_qty` IS NULL OR `purchase_qty` NOT IN (0.000000BD)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "showTitle": true,
+                "title": "Top Most Purchased Products"
+              },
+              "mark": {
+                "colors": [
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 3
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 2
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 3
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 4
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 5
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 6
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 7
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 8
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 9
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 10
+                  }
+                ]
+              },
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "sum(purchase_qty)",
+                  "displayName": "Purchased Quantity",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "y": {
+                  "fieldName": "product_name",
+                  "displayName": "Product Name",
+                  "scale": {
+                    "type": "categorical",
+                    "sort": {
+                      "by": "x-reversed"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 1,
+            "y": 8,
+            "width": 11,
+            "height": 9
           }
         }
       ],
